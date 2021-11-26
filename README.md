@@ -2,7 +2,7 @@
 This script automatically processes patient transports on the website "www.leitstellenspiel.de" or "www.missionchief.com".
 
 ## :file_folder: Versions
-[#1.0](https://github.com/MisterL-v/Missionchief-AutoScript-Patient-Transports/releases/tag/%23version_1.0) [Latest]
+[#1.0](https://github.com/MisterL-v/Missionchief-AutoScript-Patient-Transports/releases/tag/%23version_1.0) `[Latest]`
 
 ## :heavy_check_mark: Functions
 First of all, after the registration, the script searches for possible patient transports that have not yet been processed.
