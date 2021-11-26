@@ -8,7 +8,7 @@ mission_ids = []
 missions_completed = 0
 
 """"
-#   Leitstellenspiel Auto-Script Krankentransporte
+#   Missionchief auto-script patient transports
 #!  MAKE SURE you DOWNLOADED the CHROME DRIVE and also installed CHROME
 #   Download links:
 #   -   Google Chrome:  https://www.google.de/chrome/?brand=FKPE&gclid=CjwKCAiAqIKNBhAIEiwAu_ZLDlssyRHAGslyxjokZ8S3gKrC4Gkgkf7efZ622vxaiy-eg18UJM9efxoClWQQAvD_BwE&gclsrc=aw.ds
