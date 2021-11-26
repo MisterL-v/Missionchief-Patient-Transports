@@ -1,4 +1,4 @@
-# Missionchief-AutoScript-Patient-Transports
+# Missionchief-Patient-Transports
 This script automatically processes patient transports on the website "www.leitstellenspiel.de" or "www.missionchief.com".
 
 ## :file_folder: Versions
