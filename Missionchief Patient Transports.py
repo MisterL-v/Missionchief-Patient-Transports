@@ -1,3 +1,16 @@
+""""
+#   Missionchief patient transports
+#!  MAKE SURE you DOWNLOADED the CHROME DRIVE and also installed CHROME
+#   Download links:
+#   -   Google Chrome:  https://www.google.de/chrome/?brand=FKPE&gclid=CjwKCAiAqIKNBhAIEiwAu_ZLDlssyRHAGslyxjokZ8S3gKrC4Gkgkf7efZ622vxaiy-eg18UJM9efxoClWQQAvD_BwE&gclsrc=aw.ds
+#   -   Chromedriver:   https://chromedriver.chromium.org/downloads
+"""
+# -------------------------PLEASE UPDATE THIS INFORMATIONS-----------------------------------
+PATH = r"C:\Users\...\chromedriver.exe"    # Path where you have downloaded the chromedriver.exe
+user_email = ""
+user_password = ""
+# -------------------------------------------------------------------------------------------
+
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
@@ -6,19 +19,6 @@ import time
 
 mission_ids = []
 missions_completed = 0
-
-""""
-#   Missionchief auto-script patient transports
-#!  MAKE SURE you DOWNLOADED the CHROME DRIVE and also installed CHROME
-#   Download links:
-#   -   Google Chrome:  https://www.google.de/chrome/?brand=FKPE&gclid=CjwKCAiAqIKNBhAIEiwAu_ZLDlssyRHAGslyxjokZ8S3gKrC4Gkgkf7efZ622vxaiy-eg18UJM9efxoClWQQAvD_BwE&gclsrc=aw.ds
-#   -   Chromedriver:   https://chromedriver.chromium.org/downloads
-"""
-
-#Please update this informations
-PATH = r"C:\Users\........\chromedriver.exe"    # Path where u have downloaded the driver
-user_email = ""
-user_password = ""
 
 try:
       driver =  webdriver.Chrome(PATH)
@@ -35,7 +35,6 @@ password.send_keys(user_password)
 
 driver.find_element_by_name("commit").click()
 
-#Just check if were really loged into our website
 if driver.current_url != "https://www.leitstellenspiel.de/" or user_email == "" or user_password == "":
     print("Login was unsuccessful. Please make sure that you have entered your login information correctly.")
 else:
