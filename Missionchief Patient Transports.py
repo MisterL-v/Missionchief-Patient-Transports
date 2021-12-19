@@ -15,15 +15,21 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.keys import Keys
 import selenium.webdriver.support.ui as ui
+from selenium.webdriver.common.action_chains import ActionChains
 import time
-
-mission_ids = []
-missions_completed = 0
 
 try:
       driver =  webdriver.Chrome(PATH)
 except Exception:
     print("Browser could not be opened. Make sure you changed all information and met all requirements.")
+
+actions = ActionChains(driver)
+
+def printAlert(mission_id, unit_id, unit_type):
+    print("Alert [Mission-ID: " + mission_id + " | Vehicle ID: " + unit_id + " | Unit type: " + unit_type +"]")
+
+mission_ids = []
+missions_completed = 0
 
 driver.get("https://www.leitstellenspiel.de/users/sign_in")
 
@@ -33,7 +39,9 @@ password = driver.find_element_by_id("user_password")
 username.send_keys(user_email)
 password.send_keys(user_password)
 
-driver.find_element_by_name("commit").click()
+button = driver.find_element_by_name("commit")
+
+button.click()
 
 if driver.current_url != "https://www.leitstellenspiel.de/" or user_email == "" or user_password == "":
     print("Login was unsuccessful. Please make sure that you have entered your login information correctly.")
@@ -47,7 +55,10 @@ else:
             if "mission_panel_red" in class_type:
                 mission_ids.append(id)
         
-        print("Required patient transports: " + str(len(mission_ids)))
+        if len(mission_ids) > 0:
+            print("Required patient transports: " + str(len(mission_ids)))
+        else:
+            print("Currently no new patient transports are available.")
 
         while len(mission_ids) > 0:
             driver.get("https://www.leitstellenspiel.de/missions/" + mission_ids[0])
@@ -58,26 +69,32 @@ else:
             try:
                 car_ktw = driver.find_element_by_xpath('//*[@ktw="1" and @class="vehicle_checkbox"]')
             except Exception:
-                use_rtw = True
                 use_ktw = False
 
-            try:
-                car_rtw = driver.find_element_by_xpath('//*[@rtw="1" and @class="vehicle_checkbox"]')
-            except Exception:
-                use_rtw = False
-
             if  use_ktw == True:
-                print("Alert [Mission-ID: " + mission_ids[0] + " | Vehicle ID: " + car_ktw.get_attribute('value') + " | Unit type: KTW]")
+                printAlert(mission_ids[0], car_ktw.get_attribute('value'), "patient transport vehicle")
+                driver.execute_script("arguments[0].scrollIntoView();", car_ktw)
                 car_ktw.click()
-                driver.find_element_by_name("commit").click()
+                button = driver.find_element_by_name("commit")
+                driver.execute_script("arguments[0].scrollIntoView();", button)
+                button.click()
                 missions_completed += 1
-            elif use_rtw == True:
-                print("Alert [Mission-ID: " + mission_ids[0] + " | Vehicle ID: " + car_rtw.get_attribute('value') + " | Unit type: RTW]")
+            elif use_ktw == False:
+                try:
+                    car_rtw = driver.find_element_by_xpath('//*[@rtw="1" and @class="vehicle_checkbox"]')
+                except Exception:
+                    print("Currently no emergency Verhicle is available")
+
+                printAlert(mission_ids[0], car_rtw.get_attribute('value'), "mobile intensive car unit")
+                driver.execute_script("arguments[0].scrollIntoView();", car_rtw)
                 car_rtw.click()
-                driver.find_element_by_name("commit").click()
+                button = driver.find_element_by_name("commit")
+                driver.execute_script("arguments[0].scrollIntoView();", button)
+                button.click()
                 missions_completed += 1
-            elif use_ktw == False and use_rtw == False:
-                print("Currently no emergency Verhicle is available")
+            else:
+                print("Critical Error while searching for a free patient transport car.")
+            
             mission_ids.pop(0)
             driver.get("https://www.leitstellenspiel.de")
 
